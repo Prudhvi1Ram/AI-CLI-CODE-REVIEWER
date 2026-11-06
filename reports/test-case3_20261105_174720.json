@@ -1,0 +1,52 @@
+{
+    "file_name": "test-case3.py",
+    "overall_status": "Medium",
+    "summary": "The code is functionally correct for small inputs but suffers from O(n^3) complexity due to nested loops and list membership testing. It also lacks input validation and handles type safety poorly, as adding identical instances of unhashable types (like lists) to a standard list with 'in' checks can be resource-intensive. Converting the internal list to a set would significantly improve performance.",
+    "findings": [
+        {
+            "category": "Performance",
+            "severity": "High",
+            "line": 7,
+            "issues": [
+                "Using a list for `duplicates` and checking 'in duplicates' results in O(n) complexity for each check, making the overall function O(n^3)."
+            ],
+            "suggestion": "Use a set instead of a list to store seen duplicates to achieve O(1) membership testing, resulting in O(n^2) complexity."
+        },
+        {
+            "category": "Code Quality",
+            "severity": "Low",
+            "line": 6,
+            "issues": [
+                "Nested if statements check 'i != j and numbers[i] == numbers[j]' followed immediately by 'numbers[i] not in duplicates', which can be combined for readability."
+            ],
+            "suggestion": "Use a single if statement with combined logic to reduce nesting depth, improving code readability."
+        },
+        {
+            "category": "Code Quality",
+            "severity": "Low",
+            "line": 1,
+            "issues": [
+                "The function iterates with a nested loop to find duplicates, which is inefficient compared to using built-in collections or dictionary counting."
+            ],
+            "suggestion": "Use `collections.Counter` or a set to find duplicates more efficiently, reducing the algorithm to O(n)."
+        },
+        {
+            "category": "Security",
+            "severity": "Medium",
+            "line": 1,
+            "issues": [
+                "Potential for DoS attacks if untrusted input consisting of large, unhashable objects is passed, leading to memory/CPU exhaustion due to inefficient identity checks."
+            ],
+            "suggestion": "Validate input types/length. Restrict processing to hashable objects and early-return if input size exceeds a threshold."
+        },
+        {
+            "category": "Performance",
+            "severity": "Medium",
+            "line": 4,
+            "issues": [
+                "Calling 'len(numbers)' within loop conditions repeatedly can be slightly suboptimal; caching the length is cleaner, though Python optimizes small list lengths internally."
+            ],
+            "suggestion": "Store the length of the list outside the loop for clarity and explicit performance optimization."
+        }
+    ]
+}

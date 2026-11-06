@@ -1,0 +1,34 @@
+{
+    "file_name": "test-case1.py",
+    "overall_status": "Critical",
+    "summary": "The function contains a critical logical bug where the return values are swapped relative to the condition check. Additionally, the code lacks input validation and type hints, which may lead to runtime errors or confusion.",
+    "findings": [
+        {
+            "category": "Logic",
+            "severity": "Critical",
+            "line": 2,
+            "issues": [
+                "The condition 'num % 2 == 1' identifies odd numbers, but the function returns 'Even'. Conversely, even numbers return 'Odd'. This inverts the mathematical definition."
+            ],
+            "suggestion": "Change 'if num % 2 == 1:' to 'if num % 2 == 0:', or swap the string literals so that it returns 'Odd' for odd numbers and 'Even' for even numbers."
+        },
+        {
+            "category": "Code Quality",
+            "severity": "Low",
+            "line": 1,
+            "issues": [
+                "Function lacks type hints, reducing code clarity."
+            ],
+            "suggestion": "Add type hints, e.g., 'def check_even(num: int) -> str:'."
+        },
+        {
+            "category": "Code Quality",
+            "severity": "Low",
+            "line": 1,
+            "issues": [
+                "No input validation ensures 'num' is an integer. Passing a float (e.g., 2.5) would still return \u2018Even\u2019/\u2018Odd\u2019 incorrectly, as 2.5 % 2 = 0.5, which is neither ==0 nor ==1. Passing a string would raise a TypeError."
+            ],
+            "suggestion": "Add an assertion or explicit check: 'if not isinstance(num, int): raise TypeError(\u201cnum must be an integer\u201d)'. Alternatively, validate and handle non-integer inputs appropriately."
+        }
+    ]
+}

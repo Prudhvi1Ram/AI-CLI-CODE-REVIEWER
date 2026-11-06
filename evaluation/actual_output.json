@@ -1,0 +1,17 @@
+{
+  "test-case1.py": {
+    "expected_findings": ["logical_bug"]
+  },
+  "test-case2.py": {
+    "expected_findings": ["undefined_variable"]
+  },
+  "test-case3.py": {
+    "expected_findings": ["inefficient_loop"]
+  },
+  "test-case4.py": {
+    "expected_findings": ["sql_injection"]
+  },
+  "test-case5.py": {
+    "expected_findings": ["infinite_loop"]
+  }
+}
